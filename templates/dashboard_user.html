@@ -1,0 +1,10 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+    <h1>Witaj, {{ current_user.username }}!</h1>
+    <p>Twoje opcje:</p>
+    <div class="btn-group mt-3">
+        <a href="{{ url_for('manage_vehicles') }}" class="btn btn-outline-primary">Pojazdy</a>
+    </div>
+</div>
+{% endblock %}

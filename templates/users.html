@@ -1,0 +1,30 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h3>Zarządzanie użytkownikami</h3>
+<form method="post" class="row g-3">
+    {{ form.hidden_tag() }}
+    <div class="col-md-4">{{ form.username.label }} {{ form.username(class_='form-control') }}</div>
+    <div class="col-md-4">{{ form.password.label }} {{ form.password(class_='form-control') }}</div>
+    <div class="col-md-4">{{ form.confirm.label }} {{ form.confirm(class_='form-control') }}</div>
+    <div class="col-md-4">{{ form.role.label }} {{ form.role(class_='form-select') }}</div>
+    <div class="col-12">{{ form.submit(class_='btn btn-success') }}</div>
+</form>
+<hr>
+<table class="table table-striped mt-3">
+    <thead><tr><th>ID</th><th>Login</th><th>Rola</th><th>Akcje</th></tr></thead>
+    <tbody>
+        {% for u in users %}
+        <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.role }}</td>
+            <td>
+                {% if u.username!='admin' %}
+                <a href="?delete={{ u.id }}" class="btn btn-sm btn-danger">Usuń</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

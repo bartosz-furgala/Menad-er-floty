@@ -1,0 +1,23 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h3>Zarządzanie lokalizacjami</h3>
+<form method="post" class="row g-3">
+    {{ form.hidden_tag() }}
+    <div class="col-md-6">{{ form.street.label }} {{ form.street(class_='form-control') }}</div>
+    <div class="col-md-6">{{ form.city.label }} {{ form.city(class_='form-control') }}</div>
+    <div class="col-12">{{ form.submit(class_='btn btn-success') }}</div>
+</form>
+<hr>
+<table class="table table-striped mt-3">
+    <thead><tr><th>ID</th><th>Lokalizacja</th><th>Akcje</th></tr></thead>
+    <tbody>
+        {% for l in locs %}
+        <tr>
+            <td>{{ l.id }}</td>
+            <td>{{ l.street }}, {{ l.city }}</td>
+            <td><a href="?delete={{ l.id }}" class="btn btn-sm btn-danger">Usuń</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

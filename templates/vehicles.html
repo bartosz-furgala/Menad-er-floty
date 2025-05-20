@@ -1,0 +1,34 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h3>Lista pojazdów</h3>
+{% if current_user.role=='admin' %}
+<form method="post" class="row g-3 mb-3">
+    {{ form.hidden_tag() }}
+    <div class="col-md-4">{{ form.make.label }} {{ form.make(class_='form-control') }}</div>
+    <div class="col-md-4">{{ form.model.label }} {{ form.model(class_='form-control') }}</div>
+    <div class="col-md-2">{{ form.year.label }} {{ form.year(class_='form-control') }}</div>
+    <div class="col-md-2">{{ form.registration_number.label }} {{ form.registration_number(class_='form-control') }}</div>
+    <div class="col-md-2 d-flex align-items-end">{{ form.submit(class_='btn btn-success w-100') }}</div>
+</form>
+{% endif %}
+<table class="table table-hover">
+    <thead><tr><th>ID</th><th>Marka</th><th>Model</th><th>Rok</th><th>Numer rejestracyjny</th><th>Akcje</th></tr></thead>
+    <tbody>
+        {% for v in vehicles %}
+        <tr>
+            <td>{{ v.id }}</td>
+            <td>{{ v.make }}</td>
+            <td>{{ v.model }}</td>
+            <td>{{ v.year }}</td>
+            <td>{{ v.registration_number }}</td>
+            <td>
+                <a href="{{ url_for('vehicle_detail', vid=v.id) }}" class="btn btn-sm btn-primary">Szczegóły</a>
+                {% if current_user.role=='admin' %}
+                <a href="?delete={{ v.id }}" class="btn btn-sm btn-danger">Usuń</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
